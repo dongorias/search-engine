@@ -1,6 +1,8 @@
 import pickle
 import os
 from modules.Author import Author
+from modules.singleton import singleton
+
 
 class Corpus:
     def __init__(self, nom):
@@ -83,6 +85,7 @@ class Corpus:
             pickle.dump(self, f)
             print(f"✅ Corpus sauvegardé en format pickle: {filepath}")
 
+    @staticmethod
     def load(filepath):
         """
         Charge un corpus depuis le disque dur
