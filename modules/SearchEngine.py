@@ -4,11 +4,11 @@ import pandas as pd
 import math
 from collections import Counter
 from typing import List, Dict
-
+from tqdm import tqdm
 from modules.Corpus import nettoyer_texte
 
 
-class Recherche:
+class SearchEngine:
     """
     Moteur de recherche basé sur une matrice Documents x Termes.
     Utilise les mesures TF et TF-IDF pour calculer la similarité entre une requête et les documents.
@@ -61,7 +61,8 @@ class Recherche:
 
         # Listes pour construire la matrice creuse (CSR)
         data, rows, cols = [], [], []
-        for doc_idx, (doc_id, document) in enumerate(self.corpus.documents.items()):
+        print("      → Construction de la matrice TF...")
+        for doc_idx, (doc_id, document) in tqdm(enumerate(self.corpus.documents.items()), total=n_docs, desc="Indexation"):
             words = self._tokenize(document.texte)
             word_counts = Counter(words)
 
@@ -219,7 +220,7 @@ class Recherche:
 
         # Construit le DataFrame de résultats
         results = []
-        for rank, doc_idx in enumerate(top_indices, start=1):
+        for rank, doc_idx in tqdm(enumerate(top_indices, start=1), total=len(top_indices), desc="Récupération des résultats"):
             # Récupère le document correspondant
             doc_id = list(self.corpus.documents.keys())[doc_idx]
             document = self.corpus.documents[doc_id]

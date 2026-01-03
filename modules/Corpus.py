@@ -132,21 +132,21 @@ class Corpus:
             self._full_text = " ".join(texts)
         return self._full_text
 
-    def search(self, keyword):
-        """
-        Recherche les passages contenant le mot-clé dans le corpus.
-
-        Args:
-            keyword: Le mot-clé à rechercher
-
-        Returns:
-            Liste des passages contenant le mot-clé
-        """
-
-        full_text = self._get_full_text()
-
-        match = re.finditer(keyword, full_text)
-        return match
+    # def search(self, keyword):
+    #     """
+    #     Recherche les passages contenant le mot-clé dans le corpus.
+    #
+    #     Args:
+    #         keyword: Le mot-clé à rechercher
+    #
+    #     Returns:
+    #         Liste des passages contenant le mot-clé
+    #     """
+    #
+    #     full_text = self._get_full_text()
+    #
+    #     match = re.finditer(keyword, full_text)
+    #     return match
 
     def concorde(self, expression, context_size: int = 10)-> pd.DataFrame:
         """
